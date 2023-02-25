@@ -9,9 +9,15 @@ namespace CoreDemo.Controllers
         BlogManager bm = new BlogManager(new EfBlogRepository());
         public IActionResult Index()
         {
-            var values = bm.GetList();//veritabanındaki verileri zaten burda çekmişsin
+            var values = bm.GetBlogListWithCategory();//veritabanındaki verileri zaten burda çekmişsin
 
             return View(values);  //return view dedin ya onun içine verileri göndermen gerekiyor
+        }
+        public IActionResult BlogReadAll(int id )
+        {
+            ViewBag.i = id;
+            var values = bm.GetBlogByID(id);
+            return View(values);
         }
     }
 }
