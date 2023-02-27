@@ -1,9 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
+using DataAccessLayer.EntityFramework;
+using EntitiyLayer.Concrete;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreDemo.Controllers
 {
     public class RegisterController : Controller
     {
+        WriterManager wm = new WriterManager(new EfWriterRepository());
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -11,9 +19,25 @@ namespace CoreDemo.Controllers
         }
         [HttpPost]
         
-        public IActionResult Index(int i)// eğitimde düzeltilicek
+        public IActionResult Index(Writer p)
         {
-            return View();
+            WriterValidator wv = new WriterValidator();
+            ValidationResult result=wv.Validate(p);
+            if (result.IsValid)
+            {
+                p.WriterStatus = true;
+                p.WriterAbout = "Deneme Test";
+                wm.WriterAdd(p);
+                return RedirectToAction("Index", "Blog2");
+            }
+            else
+            {
+                foreach(var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+                return View();
+            }
         }
     }
 }
