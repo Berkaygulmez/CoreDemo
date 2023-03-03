@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Controllers
-{   
+{
     [Authorize]
     public class WriterController : Controller
     {
@@ -20,6 +20,10 @@ namespace CoreDemo.Controllers
         {
             return View();
         }
-
+        [AllowAnonymous]
+        public IActionResult Test()
+        {
+            return View();
+        }
     }
 }
