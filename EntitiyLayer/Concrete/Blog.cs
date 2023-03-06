@@ -22,6 +22,6 @@ namespace EntitiyLayer.Concrete
         public int WriterID { get; set; }
         public Writer Writer { get; set; }
         public  List<Comment> Comments { get; set; }
-
+        public object BlogTittle { get; set; }
     }
 }

@@ -1,7 +1,11 @@
 ﻿    using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
+using EntitiyLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CoreDemo.Controllers
 {
@@ -20,6 +24,21 @@ namespace CoreDemo.Controllers
             ViewBag.i = id;
             var values = bm.GetBlogByID(id);
             return View(values);
+        }
+        public IActionResult BlogListByWriter()
+        {
+          var values =  bm.GetBlogListByWriter(1);
+            return View(values);
+        }
+        [HttpGet]
+        public IActionResult BlogAdd()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult BlogAdd(Blog p)
+        {
+            return View();
         }
     }
 }
