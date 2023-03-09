@@ -21,7 +21,8 @@ namespace EntitiyLayer.Concrete
         public Category Category { get; set; }
         public int WriterID { get; set; }
         public Writer Writer { get; set; }
-        public  List<Comment> Comments { get; set; }
-        public object BlogTittle { get; set; }
+        public List<Comment> Comments { get; set; }
+
+       // public object BlogTittle { get; set; }   bunu buraya niye yazdın bilmiyorum ama silince çalıştı sorun buydu telefonlara çıkarsan sevinirim kolay gelsin :(
     }
 }
