@@ -65,9 +65,18 @@ namespace CoreDemo.Controllers
                 foreach (var item in result.Errors)
                 {
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-                return View();
+                }             
             }
+
+            List<SelectListItem> categoryvalues = (from x in cm.GetList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.CategoryName,
+                                                       Value = x.CategoryID.ToString()
+                                                   }).ToList();
+            ViewBag.cv = categoryvalues;
+
+            return View();
         }
         public IActionResult DeleteBlog(int id)
         {
