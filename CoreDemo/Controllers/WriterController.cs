@@ -22,6 +22,7 @@ namespace CoreDemo.Controllers
     {
         WriterManager wm = new WriterManager(new EfWriterRepository());
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
