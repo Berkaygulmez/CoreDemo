@@ -67,12 +67,12 @@ namespace CoreDemo.Controllers
         public async Task<IActionResult> DeleteEmployee(int id)
         {
             var httpClient = new HttpClient();
-            var responseMessage = await httpClient.DeleteAsync("https://localhost:44365/api/Default" + id);
+            var responseMessage = await httpClient.DeleteAsync("https://localhost:44365/api/Default/" + id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
 
