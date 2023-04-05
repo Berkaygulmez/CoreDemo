@@ -19,12 +19,16 @@ namespace CoreDemo.Controllers
         BlogManager bm = new BlogManager(new EfBlogRepository());
         CategoryManager cm = new CategoryManager(new EfCategoryRepository());
         Context c = new Context();
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var values = bm.GetBlogListWithCategory();//veritabanındaki verileri zaten burda çekmişsin
 
             return View(values);  //return view dedin ya onun içine verileri göndermen gerekiyor
         }
+
+        [AllowAnonymous]
         public IActionResult BlogReadAll(int id )
         {
             ViewBag.i = id;
