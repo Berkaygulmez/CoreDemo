@@ -23,9 +23,9 @@ namespace CoreDemo.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            var values = bm.GetBlogListWithCategory();//veritabanındaki verileri zaten burda çekmişsin
+            var values = bm.GetBlogListWithCategory();
 
-            return View(values);  //return view dedin ya onun içine verileri göndermen gerekiyor
+            return View(values);  
         }
 
         [AllowAnonymous]
@@ -37,7 +37,8 @@ namespace CoreDemo.Controllers
         }
         public IActionResult BlogListByWriter()
         {
-            var usermail = User.Identity.Name;
+            var username = User.Identity.Name;
+            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var writerID = c.Writers.Where(x => x.Writermail == usermail).Select(y => y.WriterID).FirstOrDefault();
             var values =  bm.GetListWithCategoryByWriterBm(writerID);
             return View(values);
@@ -59,8 +60,10 @@ namespace CoreDemo.Controllers
         public IActionResult BlogAdd(Blog p)
         {
 
-            var usermail = User.Identity.Name;
+            var username = User.Identity.Name;
+            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var writerID = c.Writers.Where(x => x.Writermail == usermail).Select(y => y.WriterID).FirstOrDefault();
+
             BlogValidator bv = new BlogValidator();
             ValidationResult result = bv.Validate(p);
             if (result.IsValid)
@@ -111,7 +114,8 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog p, int id) 
         {
-            var usermail = User.Identity.Name;
+            var username = User.Identity.Name;
+            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var writerID = c.Writers.Where(x => x.Writermail == usermail).Select(y => y.WriterID).FirstOrDefault();
             p.BlogID = id;  
             p.WriterID = writerID;

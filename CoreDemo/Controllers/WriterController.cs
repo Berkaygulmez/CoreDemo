@@ -16,8 +16,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-//using ValidationResult = FluentValidation.Results.ValidationResult; //bune lan
-
 namespace CoreDemo.Controllers
 {
     public class WriterController : Controller
@@ -87,6 +85,8 @@ namespace CoreDemo.Controllers
             values.NameSurname = model.namesurname;
             values.ImageURL = model.imageurl;
             values.Email = model.mail;
+            values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.password);
+
             var result = await _userManager.UpdateAsync(values);
             return RedirectToAction("Index", "Dashboard");
 
@@ -120,5 +120,6 @@ namespace CoreDemo.Controllers
 
             return RedirectToAction("Index", "Dashboard");
         }
+      
     }
 }
