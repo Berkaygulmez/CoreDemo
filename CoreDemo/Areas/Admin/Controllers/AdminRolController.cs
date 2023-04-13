@@ -1,6 +1,7 @@
 ﻿using CoreDemo.Areas.Admin.Models;
 using DocumentFormat.OpenXml.Office.CustomUI;
 using EntitiyLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace CoreDemo.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin.Moderator")]
     public class AdminRolController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
